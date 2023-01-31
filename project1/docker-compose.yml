@@ -1,0 +1,36 @@
+version: '3'
+services:
+  db:
+    image: postgres:13.4-alpine
+    container_name: db
+    environment:
+      - POSTGRES_USER=pg
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_DB=gorm1
+    volumes:
+      - ./pgData_store:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    networks:
+      - GORM_1
+
+  adminer:
+    image: adminer
+    restart: always
+    depends_on:
+      - db
+    container_name: adminer
+    ports:
+      - 8080:8080
+    networks:
+      - GORM_1
+
+  
+networks:
+  GORM_1:
+
+
+
+
+# docker-compose -f docker-compose.override.yml up -d
+# docker-compose up --build
