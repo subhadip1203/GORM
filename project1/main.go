@@ -15,4 +15,5 @@ func main() {
 	}
 	database.ConnectDB()
 	models.LoadUserModel()
+	models.AddUser()
 }
