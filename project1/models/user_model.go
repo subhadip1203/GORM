@@ -11,11 +11,21 @@ import (
 
 var db *gorm.DB
 
+// type User struct {
+// 	gorm.Model
+// 	Name      string
+// 	Age       int8      `gorm:"default:18"`
+// 	CreatedAt time.Time `json:"-"`
+// }
+
+// about advance models
 type User struct {
-	gorm.Model
+	ID        uint           `gorm:"primary_key"`
+	CreatedAt time.Time      `json:"-"`
+	UpdatedAt time.Time      `json:"-"`
+	DeletedAt gorm.DeletedAt `gorm:"index"`
 	Name      string
-	Age       int8      `gorm:"default:18"`
-	CreatedAt time.Time `json:"-"`
+	Age       int8 `gorm:"default:18"`
 }
 
 func LoadUserModel() {
@@ -35,4 +45,12 @@ func AddUser() {
 	}
 	fmt.Println(string(jsonUser))
 
+}
+
+func DeleteUser(id int) {
+	result := db.Delete(&User{}, id)
+	if result.Error != nil {
+		fmt.Println("db error")
+	}
+	fmt.Println("deteled data")
 }

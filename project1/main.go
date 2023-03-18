@@ -16,4 +16,5 @@ func main() {
 	database.ConnectDB()
 	models.LoadUserModel()
 	models.AddUser()
+	models.DeleteUser(11)
 }
